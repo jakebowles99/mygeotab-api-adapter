@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution and project files first to leverage Docker cache for package restore. They're not all needed, but logic can be switched for different projects.
+# Copy solution and project files first
 COPY *.sln .
 COPY MyGeotabAPIAdapter/*.csproj MyGeotabAPIAdapter/
 COPY MyGeotabAPIAdapter.Configuration/*.csproj MyGeotabAPIAdapter.Configuration/
@@ -17,21 +17,24 @@ COPY MyGeotabAPIAdapter.Logging/*.csproj MyGeotabAPIAdapter.Logging/
 COPY MyGeotabAPIAdapter.MyGeotabAPI/*.csproj MyGeotabAPIAdapter.MyGeotabAPI/
 COPY MyGeotabAPIAdapter.Tests/*.csproj MyGeotabAPIAdapter.Tests/
 
-# Restore NuGet packages
-RUN dotnet restore
+# Install and restore packages
+RUN dotnet add MyGeotabAPIAdapter/MyGeotabAPIAdapter.csproj package Azure.Storage.Files.DataLake --version 12.17.1 && \
+    dotnet add MyGeotabAPIAdapter/MyGeotabAPIAdapter.csproj package Microsoft.Extensions.Configuration.Binder --version 8.0.0 && \
+    dotnet restore
 
 # Copy the rest of the source code
 COPY . .
 
-# Build and publish the DataOptimizer project
-RUN dotnet publish MyGeotabAPIAdapter/MyGeotabAPIAdapter.csproj -c Release -o /app/publish --no-restore
+# Build and publish
+RUN dotnet build MyGeotabAPIAdapter/MyGeotabAPIAdapter.csproj -c Release && \
+    dotnet publish MyGeotabAPIAdapter/MyGeotabAPIAdapter.csproj -c Release -o /app/publish
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Set environment variables if needed
+# Set environment variables
 ENV DOTNET_ENVIRONMENT=Production
 
 # Create a non-root user

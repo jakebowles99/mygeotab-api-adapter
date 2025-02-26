@@ -12,7 +12,10 @@ services:
       - LoginSettings__MyGeotabServer=${GEOTAB_SERVER}
       - LoginSettings__MyGeotabDatabase=${GEOTAB_DATABASE}
       - LoginSettings__MyGeotabUser=${GEOTAB_USER}
-      - LoginSettings__MyGeotabPassword=${GEOTAB_PASSWORD}
+      - LoginSettings__MyGeotabPassword=${GEOTAB_PASSWORD} 
+      - AzureDataLake__AccountName=${AZURE_ACCOUNT_NAME}
+      - AzureDataLake__AccountKey=${AZURE_STORAGE_KEY}
+      - AzureDataLake__FileSystemName=${AZURE_CONTAINER}
     depends_on:
       db:
         condition: service_healthy

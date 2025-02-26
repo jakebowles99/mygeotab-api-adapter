@@ -80,6 +80,7 @@ namespace MyGeotabAPIAdapter
                         .AddTransient<IMessageLogger, MessageLogger>()
                         .AddSingleton<IMyGeotabAPIHelper, MyGeotabAPIHelper>()
                         .AddTransient<IStringHelper, StringHelper>()
+                        .AddSingleton<IAdlsService, AdlsService>()
                         .AddSingleton<IUnmappedDiagnosticManager, UnmappedDiagnosticManager>()
                         .AddTransient<IVSSObjectMapper, VSSObjectMapper>()
 
