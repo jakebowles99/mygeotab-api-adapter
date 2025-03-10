@@ -13,6 +13,7 @@ services:
       - LoginSettings__MyGeotabDatabase=${GEOTAB_DATABASE}
       - LoginSettings__MyGeotabUser=${GEOTAB_USER}
       - LoginSettings__MyGeotabPassword=${GEOTAB_PASSWORD}
+      - HOME=/app
     depends_on:
       db:
         condition: service_healthy
@@ -28,8 +29,8 @@ services:
       - "1433:1433"
     volumes:
       - sqldata:/var/opt/mssql
-      - ./MyGeoTabAPIAdapter/SQLServer/:/docker-entrypoint-initdb.d
-      - ./MyGeoTabAPIAdapter/SQLServer/init.sh:/init.sh
+      - ./MyGeoTabAPIAdapter/Scripts/SQLServer/v2/:/docker-entrypoint-initdb.d
+      - ./MyGeoTabAPIAdapter/Scripts/SQLServer/v2/init.sh:/init.sh
     healthcheck:
       test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -Q "SELECT 1" -C || exit 1
       interval: 10s

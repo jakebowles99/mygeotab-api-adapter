@@ -31,9 +31,6 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Set environment variables if needed
-ENV DOTNET_ENVIRONMENT=Production
-
 # Create a non-root user
 RUN useradd -M -s /bin/bash appuser && chown -R appuser:appuser /app
 USER appuser

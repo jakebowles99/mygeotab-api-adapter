@@ -48,7 +48,7 @@ CREATE PROCEDURE [dbo].[spManagePartitions]
 AS
 BEGIN
 	-- Adjust these variable values as needed:
-	DECLARE @filePath NVARCHAR(260) = 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\';
+	DECLARE @filePath NVARCHAR(260) = '/var/opt/mssql/data/';
 	DECLARE @fileSizeMB INT = 8;
 	DECLARE @fileGrowthMB INT = 64;
 

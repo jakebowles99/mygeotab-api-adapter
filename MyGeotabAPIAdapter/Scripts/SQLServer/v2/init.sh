@@ -35,9 +35,25 @@ else
         -v DB_PASSWORD="$DB_PASSWORD" -C
     
     # Run schema creation
-    echo "Running geotabadapterdb-DatabaseCreationScript.sql"
+    echo "Running MSSQL_0.0.0.1_spManagePartitions.sql"
     /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" \
-        -i "/docker-entrypoint-initdb.d/geotabadapterdb-DatabaseCreationScript.sql" -C
+        -i "/docker-entrypoint-initdb.d/MSSQL_0.0.0.1_spManagePartitions.sql" -C
+    
+
+    echo "Running 03-create-partition.sql"
+    /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" \
+        -i "/docker-entrypoint-initdb.d/03-create-partition.sql" -C
+    
+
+    # Run schema creation
+    echo "Running MSSQL_CumulativeSchemaCreation.sql"
+    /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" \
+        -i "/docker-entrypoint-initdb.d/MSSQL_CumulativeSchemaCreation.sql" -C
+
+
+    echo "Running 04-stored-procs-perms"
+    /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" \
+        -i "/docker-entrypoint-initdb.d/04-stored-procs-perms.sql" -C
     
     echo "Database initialization complete"
 fi
