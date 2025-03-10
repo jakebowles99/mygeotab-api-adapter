@@ -118,3 +118,5 @@
 /MyGeotabAPIAdapter.MyGeotabAPI/bin/Release/net8.0
 /MyGeotabAPIAdapter.Tests/bin/Release/net8.0
 .env
+/MyGeotabAPIAdapter/appsettings.Development.json
+/MyGeotabAPIAdapter.DataOptimizer/appsettings.Development.json
