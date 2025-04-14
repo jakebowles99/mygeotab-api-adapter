@@ -67,11 +67,14 @@ GO
 --truncate table [dbo].[EntityMetadata2];
 --truncate table [dbo].[FaultData2];
 --truncate table [dbo].[FaultDataLocations2];
+--truncate table [dbo].[Groups2];
 --truncate table [dbo].[LogRecords2];
 --truncate table [dbo].[MyGeotabVersionInfo2];
 --truncate table [dbo].[OServiceTracking2];
+--truncate table [dbo].[Rules2];
 --truncate table [dbo].[StatusData2];
 --truncate table [dbo].[StatusDataLocations2];
+--truncate table [dbo].[Trips2];
 --truncate table [dbo].[Users2];
 --truncate table [dbo].[Zones2];
 --truncate table [dbo].[ZoneTypes2];
@@ -79,6 +82,10 @@ GO
 --DBCC CHECKIDENT ('dbo.DiagnosticIds2', RESEED, 0);
 --DBCC CHECKIDENT ('dbo.Diagnostics2', RESEED, 0);
 --DBCC CHECKIDENT ('dbo.EntityMetadata2', RESEED, 0);
+--DBCC CHECKIDENT ('dbo.Groups2', RESEED, 0);
+--DBCC CHECKIDENT ('dbo.Rules2', RESEED, 0);
+--DBCC CHECKIDENT ('dbo.Trips2', RESEED, 0);
+--DBCC CHECKIDENT ('dbo.ZoneTypes2', RESEED, 0);
 --DBCC CHECKIDENT ('dbo.OServiceTracking2', RESEED, 0);
 
 ---- Step 4: Recreate foreign key constraints:
@@ -97,7 +104,7 @@ GO
 --PRINT 'An error occurred. Transaction rolled back.';
 --PRINT ERROR_MESSAGE();
 --END CATCH;
---/*** [END] Clean Database ***/ 
+--/*** [END] Clean Database ***/
 
 
 
@@ -110,6 +117,7 @@ FROM sys.tables t
 JOIN sys.partitions p ON t.object_id = p.object_id
 WHERE t.type = 'U' -- User tables only
     AND p.index_id IN (0, 1) -- 0 = heap, 1 = clustered index
+	AND t.name NOT LIKE 'stg_%'
 GROUP BY t.name
 ORDER BY t.name;
 
@@ -136,6 +144,7 @@ WITH PartitionInfo AS (
         ON DS.data_space_id = FG.data_space_id
     WHERE SCHEMA_NAME(A.schema_id) <> 'sys' 
         AND (B.index_id = 0 OR B.index_id = 1)  -- 0 = heap, 1 = clustered index
+		AND A.Name NOT LIKE 'stg_%'
 )
 SELECT TableName,
     PartitionNumber,

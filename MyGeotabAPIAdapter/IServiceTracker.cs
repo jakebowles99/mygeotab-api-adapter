@@ -129,6 +129,16 @@ namespace MyGeotabAPIAdapter
         Task<T> GetFaultDataService2InfoAsync();
 
         /// <summary>
+        /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.GroupProcessor"/>.
+        /// </summary>
+        Task<T> GetGroupServiceInfoAsync();
+
+        /// <summary>
+        /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.GroupProcessor2"/>.
+        /// </summary>
+        Task<T> GetGroupService2InfoAsync();
+
+        /// <summary>
         /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.LogRecordProcessor"/>.
         /// </summary>
         Task<T> GetLogRecordServiceInfoAsync();
@@ -142,6 +152,11 @@ namespace MyGeotabAPIAdapter
         /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.RuleProcessor"/>.
         /// </summary>
         Task<T> GetRuleServiceInfoAsync();
+
+        /// <summary>
+        /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.RuleProcessor2"/>.
+        /// </summary>
+        Task<T> GetRuleService2InfoAsync();
 
         /// <summary>
         /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.StatusDataLocationService2"/>.
@@ -162,6 +177,11 @@ namespace MyGeotabAPIAdapter
         /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.TripProcessor"/>.
         /// </summary>
         Task<T> GetTripServiceInfoAsync();
+
+        /// <summary>
+        /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.TripProcessor2"/>.
+        /// </summary>
+        Task<T> GetTripService2InfoAsync();
 
         /// <summary>
         /// Retrieves the <see cref="T"/> entity associated with the <see cref="AdapterService.UserProcessor"/>.

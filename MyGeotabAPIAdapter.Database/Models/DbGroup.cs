@@ -6,7 +6,6 @@ namespace MyGeotabAPIAdapter.Database.Models
 {
     [Table("Groups")]
     public class DbGroup : IDbEntity, IIdCacheableDbEntity, IStatusableDbEntity
-    //public class DbGroup : IDbEntity, IIdCacheableDbEntity
     {
         /// <inheritdoc/>
         [Write(false)]
